@@ -4,6 +4,9 @@ import Home from "../components/Home/Home";
 import AvailableCamps from "../pages/AvailableCamps/AvailableCamps";
 import Login from "../pages/Entry/Login";
 import SignUp from "../pages/Entry/SignUp";
+import CampDetails from "../pages/capmDetails/CampDetails";
+import JoinCamp from "../pages/joinCamp/JoinCamp";
+
 
 const router = createBrowserRouter([
     {
@@ -18,6 +21,15 @@ const router = createBrowserRouter([
             {
                 path: 'availableCamps',
                 element: <AvailableCamps></AvailableCamps>
+            },
+            {
+                path: 'campDetails/:id',
+                element: <CampDetails></CampDetails>,
+                loader: ({params}) => fetch(`http://localhost:5000/camps/${params.id}`)
+            },
+            {
+                path: 'joinCamp',
+                element: <JoinCamp></JoinCamp>
             },
             {
                 path: 'login',
