@@ -72,6 +72,8 @@ const CampDetails = () => {
                 location={camp.location}
                 healthcareProfessionalName={camp.healthcareProfessionalName}
                 campFees={camp.campFees}
+                description={camp.description}
+                image={camp.image}
               />
             </button>
           </div>

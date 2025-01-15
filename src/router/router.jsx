@@ -1,11 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
-import Home from "../components/Home/Home";
+
 import AvailableCamps from "../pages/AvailableCamps/AvailableCamps";
 import Login from "../pages/Entry/Login";
 import SignUp from "../pages/Entry/SignUp";
 import CampDetails from "../pages/capmDetails/CampDetails";
 import JoinCamp from "../pages/joinCamp/JoinCamp";
+import Banner from "../components/Banner.jsx/Banner/Banner";
+import PopularCamp from "../components/Home/PopularCamp";
 
 
 const router = createBrowserRouter([
@@ -16,7 +18,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Home></Home>
+                element: <Banner></Banner>
             },
             {
                 path: 'availableCamps',
@@ -30,6 +32,10 @@ const router = createBrowserRouter([
             {
                 path: 'joinCamp',
                 element: <JoinCamp></JoinCamp>
+            },
+            {
+                path: 'popularCamp',
+                element: <PopularCamp></PopularCamp>
             },
             {
                 path: 'login',
