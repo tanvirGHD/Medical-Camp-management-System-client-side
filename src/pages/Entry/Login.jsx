@@ -1,37 +1,57 @@
-import Lottie from 'lottie-react';
-import loginLottieData from '../../assets/Animation - 1736921457534.json'
-import { Link } from 'react-router-dom';
-import { loadCaptchaEnginge, LoadCanvasTemplate,validateCaptcha } from 'react-simple-captcha';
-import { useEffect, useRef, useState } from 'react';
+import Lottie from "lottie-react";
+import loginLottieData from "../../assets/Animation - 1736921457534.json";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  loadCaptchaEnginge,
+  LoadCanvasTemplate,
+  validateCaptcha,
+} from "react-simple-captcha";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
-    const captchaRef = useRef(null);
-    const [disabled, setDisabled] = useState(true);
-    useEffect( ()=>{
-        loadCaptchaEnginge(6);
-    },[])
+  const [disabled, setDisabled] = useState(true);
 
-    const handleLogin = event =>{
-        event.preventDefault();
-        const form = event.target;
-        const email = form.email.value;
-        const password = form.password.value;
-        console.log(email, password)
+  const { signIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
+
+  const handleLogin = (event) => {
+    
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+    signIn(email, password)
+    .then((result) => {
+      const user = result.user;
+      console.log(user);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "User Login Successfully",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      navigate('/')
+    });
+  };
+
+  const handleValidateCaptcha = (e) => {
+    const user_captcha_value = e.target.value;
+    if (validateCaptcha(user_captcha_value)) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
     }
+  };
 
-    const handleValidateCaptcha = () => {
-        const user_captcha_value = captchaRef.current.value;
-        if(validateCaptcha(user_captcha_value)){
-            setDisabled(false)
-        }
-        else{
-            setDisabled(true);
-        }
-    }
-
-
-    return (
-        <div className="card bg-blue-50 w-full max-w-4xl mx-auto mt-20 md:mt-40 p-6 rounded-lg shadow-lg flex flex-col md:flex-row items-center justify-center gap-6">
+  return (
+    <div className="card bg-blue-50 w-full max-w-4xl mx-auto mt-20 md:mt-40 p-6 rounded-lg shadow-lg flex flex-col md:flex-row items-center justify-center gap-6">
       {/* Animation Section */}
       <div className="flex-1 flex items-center justify-center">
         <div className="w-48 md:w-64">
@@ -81,17 +101,16 @@ const Login = () => {
           {/* captcha */}
           <div className="form-control">
             <label className="label">
-            <LoadCanvasTemplate />
+              <LoadCanvasTemplate />
             </label>
             <input
-              ref={captchaRef}
+              onBlur={handleValidateCaptcha}
               type="text"
               name="captcha"
               placeholder="type the captcha above"
               className="input input-bordered border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
               required
             />
-            <button onClick={handleValidateCaptcha} className='btn mt-2 btn-xs'>Validate</button>
           </div>
           <div className="form-control mt-6">
             <button
@@ -103,15 +122,19 @@ const Login = () => {
             </button>
           </div>
           <p className="text-center text-sm text-blue-600">
-          Don't have an account?{" "}
-            <Link to='/signup' href="#" className="link link-hover text-blue-800 font-semibold">
+            Don't have an account?{" "}
+            <Link
+              to="/signup"
+              href="#"
+              className="link link-hover text-blue-800 font-semibold"
+            >
               SignUp
             </Link>
           </p>
         </form>
       </div>
     </div>
-    );
+  );
 };
 
 export default Login;
