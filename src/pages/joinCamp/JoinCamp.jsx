@@ -1,15 +1,24 @@
 
-
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import useAuth from "../../hook/useAuth";
+import Swal from "sweetalert2";
+import axios from "axios"; // Import Axios
 
-const JoinCamp = ({ campName, campFees, location,image,description, healthcareProfessionalName, campId, setCampUserCount }) => {  
+const JoinCamp = ({
+  campName,
+  campFees,
+  location,
+  image,
+  description,
+  healthcareProfessionalName,
+  campId,
+  setCampUserCount,
+}) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
-  const navigate = useNavigate();  // Initialize useNavigate
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleOpen = () => {
     if (!user) {
@@ -23,15 +32,15 @@ const JoinCamp = ({ campName, campFees, location,image,description, healthcarePr
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-  
+
     const form = e.target;
-  
+
     // Collecting form data
     const age = form.age.value;
     const phone = form.phone.value;
     const gender = form.gender.value;
     const emergencyContact = form.emergencyContact.value;
-  
+
     const registrationData = {
       campName,
       campFees,
@@ -39,44 +48,37 @@ const JoinCamp = ({ campName, campFees, location,image,description, healthcarePr
       image,
       location,
       healthcareProfessionalName,
-      email: user.email, 
-      participantName: user.displayName, 
+      email: user.email,
+      participantName: user.displayName,
       age,
       phone,
       gender,
       emergencyContact,
     };
-  
+
     try {
-      const response = await fetch("http://localhost:5000/registerCamps", {
-        method: "POST",
+      // Replace fetch with axios
+      axios.post("http://localhost:5000/registerCamps", registrationData, {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(registrationData),
       });
-  
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Registration Successful:", result);
-  
-        // Optionally update registerCount in frontend
-        // Example: setCampUserCount(prevCount => prevCount + 1);
-        
-        alert("Registration successful!");
-        setOpen(false); // Close the modal
-      } else {
-        console.error("Registration failed");
-        alert("Registration failed. Please try again.");
-      }
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Your work has been saved",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      navigate('/dashboard/register');
+
     } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred. Please try again.");
+      console.error("Error during registration:", error);
+      alert("An error occurred during registration. Please try again.");
     } finally {
       setLoading(false);
     }
   };
-  
 
   return (
     <>
@@ -105,10 +107,10 @@ const JoinCamp = ({ campName, campFees, location,image,description, healthcarePr
                     />
                   </div>
                   <div className="flex flex-col">
-                    <label className="text-lg font-semibold text-gray-700">Camp Name</label>
+                    <label className="text-lg font-semibold text-gray-700">Camp Description</label>
                     <input
                       type="text"
-                      value={description|| "Camp description"}
+                      value={description || "Camp description"}
                       className="bg-gray-100 p-3 rounded-lg border border-gray-300"
                       readOnly
                     />
@@ -227,9 +229,7 @@ const JoinCamp = ({ campName, campFees, location,image,description, healthcarePr
                 <button
                   type="submit"
                   disabled={loading}
-                  className={`w-full sm:w-auto ${
-                    loading ? "bg-gray-400" : "bg-green-500"
-                  } text-white p-3 rounded-lg shadow-md transition`}
+                  className={`w-full sm:w-auto ${loading ? "bg-gray-400" : "bg-green-500"} text-white p-3 rounded-lg shadow-md transition`}
                 >
                   {loading ? "Submitting..." : "Submit"}
                 </button>
@@ -243,4 +243,3 @@ const JoinCamp = ({ campName, campFees, location,image,description, healthcarePr
 };
 
 export default JoinCamp;
-

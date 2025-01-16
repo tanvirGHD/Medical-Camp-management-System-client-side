@@ -8,10 +8,27 @@ const Dashboard = () => {
                 <h2 className="text-lg font-bold mb-4">Organizer Dashboard</h2>
                 <ul className="menu">
                     <li>
-                        <NavLink to="/" className={({ isActive }) => isActive ? "font-bold text-white" : ""}>
-                            Home
+                        <NavLink to="/dashboard/analytics" className={({ isActive }) => isActive ? "font-bold text-white" : ""}>
+                            Analytics
                         </NavLink>
                     </li>
+                    <li>
+                        <NavLink to="/dashboard/participant-profile" className={({ isActive }) => isActive ? "font-bold text-white" : ""}>
+                            Participant Profile
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/dashboard/register" className={({ isActive }) => isActive ? "font-bold text-white" : ""}>
+                            Registered Camps
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/dashboard/payment-history" className={({ isActive }) => isActive ? "font-bold text-white" : ""}>
+                            Payment History
+                        </NavLink>
+                    </li>
+
+                    <div className="divider"></div>
                     <li>
                         <NavLink to="/dashboard/organizer-profile" className={({ isActive }) => isActive ? "font-bold text-white" : ""}>
                             Organizer Profile
@@ -32,31 +49,22 @@ const Dashboard = () => {
                             Manage Registered Camps
                         </NavLink>
                     </li>
+                    <div className="divider"></div>
                     <li>
-                        <NavLink to="/dashboard/analytics" className={({ isActive }) => isActive ? "font-bold text-white" : ""}>
-                            Analytics
+                        <NavLink to="/" className={({ isActive }) => isActive ? "font-bold text-white" : ""}>
+                            Home
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/dashboard/participant-profile" className={({ isActive }) => isActive ? "font-bold text-white" : ""}>
-                            Participant Profile
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/register" className={({ isActive }) => isActive ? "font-bold text-white" : ""}>
-                            Registered Camps
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/payment-history" className={({ isActive }) => isActive ? "font-bold text-white" : ""}>
-                            Payment History
+                        <NavLink to="/availableCamps" className={({ isActive }) => isActive ? "font-bold text-white" : ""}>
+                        Available Camps
                         </NavLink>
                     </li>
                 </ul>
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 p-6">
+            <div className="flex-1 p-6 max-w-6xl mx-auto">
                 <Outlet />
             </div>
         </div>
