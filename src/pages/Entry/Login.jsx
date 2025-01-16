@@ -9,6 +9,7 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import SocialLogin from "./SocialLogin";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
@@ -51,7 +52,7 @@ const Login = () => {
   };
 
   return (
-    <div className="card bg-blue-50 w-full max-w-4xl mx-auto mt-20 md:mt-40 p-6 rounded-lg shadow-lg flex flex-col md:flex-row items-center justify-center gap-6">
+    <div className="card bg-blue-50 w-full max-w-4xl mx-auto my-10 md:mt-20 p-6 rounded-lg shadow-lg flex flex-col md:flex-row items-center justify-center gap-6">
       {/* Animation Section */}
       <div className="flex-1 flex items-center justify-center">
         <div className="w-48 md:w-64">
@@ -68,6 +69,7 @@ const Login = () => {
           <h2 className="text-center text-2xl font-bold text-blue-600">
             Login
           </h2>
+          <SocialLogin></SocialLogin>
           {/* email */}
           <div className="form-control">
             <label className="label">

@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../hook/useAxiosPublic";
+import SocialLogin from "./SocialLogin";
 
 const SignUp = () => {
   const axiosPublic = useAxiosPublic();
@@ -58,12 +59,14 @@ const SignUp = () => {
         </div>
       </div>
 
+
       {/* Form Section */}
       <div className="flex-1">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <h2 className="text-center text-2xl font-bold text-blue-600">
             Sign Up
           </h2>
+          <SocialLogin></SocialLogin>
           <div className="form-control">
             <label className="label">
               <span className="label-text text-blue-800 font-medium">Name</span>
