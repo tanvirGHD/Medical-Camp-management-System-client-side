@@ -8,6 +8,8 @@ import CampDetails from "../pages/capmDetails/CampDetails";
 import JoinCamp from "../pages/joinCamp/JoinCamp";
 import Banner from "../components/Banner.jsx/Banner/Banner";
 import PopularCamp from "../components/Home/PopularCamp";
+import Dashboard from "../layout/Dashboard";
+import Register from "../pages/Dashboard/Register/Register";
 
 
 const router = createBrowserRouter([
@@ -47,6 +49,16 @@ const router = createBrowserRouter([
             }
         ]
     },
+    {
+        path: 'dashboard',
+        element: <Dashboard></Dashboard>,
+        children: [
+            {
+                path: 'register',
+                element: <Register></Register>
+            }
+        ]
+    }
   ]);
 
 export default router;
