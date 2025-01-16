@@ -5,7 +5,7 @@ const Dashboard = () => {
 //   const [register] = useRegister();
 
   //TODO: get is admin value from the database
-  const isAdmin = true;
+  const isOrganizer = true;
 
   return (
     <div className="flex">
@@ -13,7 +13,7 @@ const Dashboard = () => {
       <div className="w-64 min-h-screen bg-blue-300 p-4">
         <h2 className="text-lg font-bold mb-4">Organizer Dashboard</h2>
         <ul className="menu">
-          {isAdmin ? (
+          {isOrganizer ? (
             <>
               <li>
                 <NavLink

@@ -1,16 +1,62 @@
 import { useQuery } from "@tanstack/react-query";
 import { FaTrash, FaUser } from "react-icons/fa";
 import useAxiosRegister from "../../../hook/useAxiosRegister";
+import Swal from "sweetalert2";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosRegister();
-  const { data: users = [] } = useQuery({
+  const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users");
+      const res = await axiosSecure.get("/users")
       return res.data;
     },
   });
+
+  const handleDeleteUser = user =>{
+    Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, cancel it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            axiosSecure.delete(`/users/${user._id}`).then((res) => {
+              if (res.data.deletedCount > 0) {
+                refetch();  // Refetch to update the list
+                Swal.fire({
+                  title: "Cancelled!",
+                  text: "Your registration has been cancelled.",
+                  icon: "success",
+                });
+              }
+            });
+          }
+        });
+  }
+
+
+  const handleMakeOrganizer = user =>{
+    axiosSecure.patch(`/users/organizer/${user._id}`)
+    .then(res =>{
+        console.log(res.data)
+        if(res.data.modifiedCount > 0){
+            refetch();
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title:  `${user.name} is an Admin Now!`,
+                showConfirmButton: false,
+                timer: 1500
+              });
+        }
+    })
+  }
+
+
 
   return (
     <div className="p-6">
@@ -48,12 +94,16 @@ const AllUsers = () => {
                   {user.email}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
-                  <button className="text-red-500 hover:text-red-700 mx-2">
-                    <FaUser className="h-6 w-6" />
-                  </button>
+                  { user.role === 'organizer' ? 'Organizer' :
+                    <button 
+                    onClick={() => handleMakeOrganizer(user)}
+                    className="text-red-500 hover:text-red-700 mx-2">
+                      <FaUser className="h-6 w-6" />
+                    </button>
+                  }
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
-                  <button className="text-red-500 hover:text-red-700 mx-2">
+                  <button onClick={() => handleDeleteUser(user)} className="text-red-500 hover:text-red-700 mx-2">
                     <FaTrash className="h-6 w-6" />
                   </button>
                 </td>
