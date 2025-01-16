@@ -11,6 +11,9 @@ import PopularCamp from "../components/Home/PopularCamp";
 import Dashboard from "../layout/Dashboard";
 import Register from "../pages/Dashboard/Register/Register";
 import PrivateRoute from "./PrivateRoute";
+import ManageRegister from "../pages/Dashboard/manageRegister/ManageRegister";
+import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
+
 
 
 const router = createBrowserRouter([
@@ -30,7 +33,7 @@ const router = createBrowserRouter([
             {
                 path: 'campDetails/:id',
                 element: <CampDetails></CampDetails>,
-                loader: ({params}) => fetch(`http://localhost:5000/camps/${params.id}`)
+                loader: ({params}) => fetch(`http://localhost:5000/registerCamps/${params.id}`)
             },
             {
                 path: 'joinCamp',
@@ -57,6 +60,15 @@ const router = createBrowserRouter([
             {
                 path: 'register',
                 element: <Register></Register>
+            },
+            //admin routes
+            {
+                path: 'manageRegister',
+                element: <ManageRegister></ManageRegister>
+            },
+            {
+                path: 'users',
+                element: <AllUsers></AllUsers>
             }
         ]
     }

@@ -4,8 +4,7 @@ import useRegister from "../../hook/useRegister";
 
 const AvailableCamps = () => {
   const [camps, setCamps] = useState([]);
-  const register = useRegister()
-  console.log(register)
+  // const register = useRegister()
 
   useEffect(() => {
     fetch("http://localhost:5000/camps")
