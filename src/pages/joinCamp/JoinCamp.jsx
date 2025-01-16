@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import useAuth from "../../hook/useAuth";
 import Swal from "sweetalert2";
-import axios from "axios"; // Import Axios
+import useAxiosRegister from "../../hook/useAxiosRegister";
 
 const JoinCamp = ({
   campName,
@@ -18,7 +18,8 @@ const JoinCamp = ({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
+  const axiosRegister = useAxiosRegister()
 
   const handleOpen = () => {
     if (!user) {
@@ -58,7 +59,7 @@ const JoinCamp = ({
 
     try {
       // Replace fetch with axios
-      axios.post("http://localhost:5000/registerCamps", registrationData, {
+      axiosRegister.post("/registerCamps", registrationData, {
         headers: {
           "Content-Type": "application/json",
         },

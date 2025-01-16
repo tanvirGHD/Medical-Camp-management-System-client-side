@@ -5,35 +5,49 @@ import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../hook/useAxiosPublic";
 
 const SignUp = () => {
-
-  const {register,handleSubmit,reset, formState: { errors },} = useForm();
-  const {createUser, updateUserProfile} = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const { createUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const onSubmit = data => {
-    console.log(data)
-    createUser(data.email, data.password)
-    .then(result => {
+  const onSubmit = (data) => {
+    createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
-      console.log(loggedUser)
+      console.log(loggedUser);
       updateUserProfile(data.name, data.photoURL)
-      .then(() => {
-        console.log('user profile info update')
-        reset();
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "User created successfully",
-          showConfirmButton: false,
-          timer: 1500
+        .then(() => {
+          //create user entry in the database
+          const userInfo = {
+            name: data.name,
+            email: data.email,
+          };
+          axiosPublic.post("/users", userInfo)
+          .then((res) => {
+            if (res.data.insertedId) {
+              console.log('user added to the database')
+              reset();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "User created successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              navigate("/");
+            }
+          });
         })
-        navigate('/')
-      })
-      .catch(error => console.log(error))
-    })
-  }
+        .catch((error) => console.log(error));
+    });
+  };
 
   return (
     <div className="card bg-blue-50 w-full max-w-4xl mx-auto my-20 p-6 rounded-lg shadow-lg flex flex-col md:flex-row items-center justify-center gap-6">
@@ -64,24 +78,26 @@ const SignUp = () => {
             />
           </div>
           <div className="form-control">
-              <label className="label">
-                <span className="label-text text-blue-800 font-medium">
-                  Photo URL
-                </span>
-              </label>
-              <input
-                type="text"
-                {...register("photoURL", { required: true })}
-                placeholder="Photo URL"
-                className="input input-bordered border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
-              />
-              {errors.photoURL && (
-                <span className="text-red-500 my-2">Photo URL is required</span>
-              )}
-            </div>
+            <label className="label">
+              <span className="label-text text-blue-800 font-medium">
+                Photo URL
+              </span>
+            </label>
+            <input
+              type="text"
+              {...register("photoURL", { required: true })}
+              placeholder="Photo URL"
+              className="input input-bordered border-blue-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+            />
+            {errors.photoURL && (
+              <span className="text-red-500 my-2">Photo URL is required</span>
+            )}
+          </div>
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-blue-800 font-medium">Email</span>
+              <span className="label-text text-blue-800 font-medium">
+                Email
+              </span>
             </label>
             <input
               type="email"
@@ -113,24 +129,24 @@ const SignUp = () => {
               required
             />
             {errors.password?.type === "required" && (
-                <p className="text-red-500 my-2">Password is required</p>
-              )}
-              {errors.password?.type === "minLength" && (
-                <p className="text-red-500 my-2">
-                  Password must be at least 6 characters
-                </p>
-              )}
-              {errors.password?.type === "maxLength" && (
-                <p className="text-red-500 my-2">
-                  Password must be less than 20 characters
-                </p>
-              )}
-              {errors.password?.type === "pattern" && (
-                <p className="text-red-500 my-2">
-                  Password must include uppercase, lowercase, number, and
-                  special characters.
-                </p>
-              )}
+              <p className="text-red-500 my-2">Password is required</p>
+            )}
+            {errors.password?.type === "minLength" && (
+              <p className="text-red-500 my-2">
+                Password must be at least 6 characters
+              </p>
+            )}
+            {errors.password?.type === "maxLength" && (
+              <p className="text-red-500 my-2">
+                Password must be less than 20 characters
+              </p>
+            )}
+            {errors.password?.type === "pattern" && (
+              <p className="text-red-500 my-2">
+                Password must include uppercase, lowercase, number, and special
+                characters.
+              </p>
+            )}
           </div>
           <div className="form-control mt-6">
             <button

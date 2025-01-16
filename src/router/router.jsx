@@ -10,6 +10,7 @@ import Banner from "../components/Banner.jsx/Banner/Banner";
 import PopularCamp from "../components/Home/PopularCamp";
 import Dashboard from "../layout/Dashboard";
 import Register from "../pages/Dashboard/Register/Register";
+import PrivateRoute from "./PrivateRoute";
 
 
 const router = createBrowserRouter([
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
     },
     {
         path: 'dashboard',
-        element: <Dashboard></Dashboard>,
+        element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children: [
             {
                 path: 'register',
