@@ -19,17 +19,17 @@ const useAxiosRegister = () => {
     })
 
     //intercepts 401 and 403 status 
-    // axiosRegister.interceptors.response.use(function(response){
-    //     return response;
-    // }, async(error) =>{
-    //     const status = error.response.status;
-    //     // console.log('status error in the interceptor',status);
-    //     if(status === 401 || status === 403){
-    //         await logOut();
-    //         navigate('/login')
-    //     }
-    //     return Promise.reject(error);
-    // })
+    axiosRegister.interceptors.response.use(function(response){
+        return response;
+    }, async(error) =>{
+        const status = error.response.status;
+        // console.log('status error in the interceptor',status);
+        if(status === 401 || status === 403){
+            await logOut();
+            navigate('/login')
+        }
+        return Promise.reject(error);
+    })
 
     return axiosRegister;
 };

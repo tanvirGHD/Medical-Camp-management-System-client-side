@@ -25,17 +25,17 @@ const Navbar = () => {
   // Navigation Links
   const links = (
     <>
-      <li>
+      <li className="md:text-lg">
         <Link to="/">Home</Link>
       </li>
-      <li>
+      <li className="md:text-lg">
         <Link to="/availableCamps">Available Camps</Link>
       </li>
     </>
   );
 
   return (
-    <div className="navbar bg-base-100 z-50 relative">
+    <div className="navbar bg-[#336699] text-white z-50 sticky top-0 ">
       {/* Logo and Website Name */}
       <div className="navbar-start">
         <div className="dropdown">
@@ -68,7 +68,7 @@ const Navbar = () => {
             </ul>
           )}
         </div>
-        <a className="btn btn-ghost text-xl">MediCare Camp</a>
+        <a className="btn btn-ghost text-2xl font-bold">MediCare Camp</a>
       </div>
 
       {/* Centered Navigation Links */}
