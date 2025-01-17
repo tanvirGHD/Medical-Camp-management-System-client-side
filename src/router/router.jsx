@@ -14,6 +14,8 @@ import ManageRegister from "../pages/Dashboard/manageRegister/ManageRegister";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import PopularDetails from "../components/Home/PopularDetails";
 import CampDetails from "../pages/CapmDetails/CampDetails";
+import AddCamp from "../pages/Dashboard/AddCamps/AddCamp";
+import OrganizerRoute from "./OrganizerRoute";
 
 
 
@@ -70,11 +72,15 @@ const router = createBrowserRouter([
             //admin routes
             {
                 path: 'manageRegister',
-                element: <ManageRegister></ManageRegister>
+                element: <OrganizerRoute><ManageRegister></ManageRegister></OrganizerRoute>
             },
             {
                 path: 'users',
-                element: <AllUsers></AllUsers>
+                element: <OrganizerRoute><AllUsers></AllUsers></OrganizerRoute>
+            },
+            {
+                path: 'addCamp',
+                element: <OrganizerRoute><AddCamp></AddCamp></OrganizerRoute>
             }
         ]
     }

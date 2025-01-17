@@ -28,7 +28,7 @@ const Dashboard = () => {
               </li>
               <li>
                 <NavLink
-                  to="/dashboard/add-camp"
+                  to="/dashboard/addCamp"
                   className={({ isActive }) =>
                     isActive ? "font-bold text-white" : ""
                   }

@@ -1,19 +1,22 @@
+
 import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "../hook/useAuth";
 import useOrganizer from "../hook/useOrganizer";
 
-
-const OrganizerRoute = ({children}) => {
-    const [user, loading] = useAuth();
+const OrganizerRoute = ({ children }) => {
+    const {user, loading} = useAuth();
     const [isOrganizer, isOrganizerLoading] = useOrganizer();
-    const location = useLocation()
-    if(loading || isOrganizerLoading) {
-        return <span className="loading loading-ring loading-lg"></span>
+    const location = useLocation();
+
+    if (loading || isOrganizerLoading) {
+        return <span className="loading loading-ring loading-lg"></span>;
     }
-    if(user && isOrganizer) {
+
+    if (user && isOrganizer) {
         return children;
     }
-    return <Navigate to='/login' state={{from: location}} replace></Navigate>
+
+    return <Navigate to="/" state={{ from: location }} replace />;
 };
 
 export default OrganizerRoute;
