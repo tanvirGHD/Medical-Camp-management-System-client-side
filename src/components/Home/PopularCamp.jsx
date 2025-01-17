@@ -8,7 +8,7 @@ const PopularCamp = () => {
     
 
     // Sort camps by registerCount in descending order and select top 3
-    const sortedCamps = register.sort((a, b) => b.registerCount - a.registerCount).slice(0, 3);
+    const sortedCamps = register.sort((a, b) => b.registerCount - a.registerCount).slice(0, 6);
 
     return (
         <div className="p-6">
@@ -45,7 +45,7 @@ const PopularCamp = () => {
                                     <span>{camp.registerCount} Participants</span>
                                 </div>
                             </div>
-                            <Link to={`/campDetails/${camp._id}`}>
+                            <Link to={`/popularDetails/${camp._id}`}>
                             <button className='text-lime-200 p-2 rounded-lg bg-gray-700'>Details</button>
                             </Link>
                         </div>

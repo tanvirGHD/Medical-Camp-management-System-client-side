@@ -1,27 +1,39 @@
 import React from "react";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
+import { Carousel } from "react-responsive-carousel";
+import banner1 from "../../assets/banner1.png";
+import banner2 from "../../assets/banner2.png";
+import banner3 from "../../assets/banner3.png";
 
 const Home = () => {
   return (
-    <div
-      className="hero min-h-screen"
-      style={{
-        backgroundImage:
-          "url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp)",
-      }}
+    <Carousel
+      infiniteLoop={true}
+      showStatus={false}
+      autoPlay={true}
+      interval={3000}
+      showThumbs={true}
+      renderThumbs={() =>
+        [banner1, banner2, banner3].map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            alt={`Thumbnail ${index + 1}`}
+            className="h-[40px] w-full object-cover mx-2"
+          />
+        ))
+      }
     >
-      <div className="hero-overlay bg-opacity-60"></div>
-      <div className="hero-content text-neutral-content text-center">
-        <div className="max-w-md">
-          <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
-          <p className="mb-5">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
-          </p>
-          <button className="btn btn-primary">Get Started</button>
-        </div>
+      <div>
+        <img src={banner1} className="h-[600px] w-full " alt="Slide 1" />
       </div>
-    </div>
+      <div>
+        <img src={banner2} className="h-[600px] w-full" alt="Slide 2" />
+      </div>
+      <div>
+        <img src={banner3} className="h-[600px] w-full" alt="Slide 3" />
+      </div>
+    </Carousel>
   );
 };
 

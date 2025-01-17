@@ -1,11 +1,12 @@
 import { NavLink, Outlet } from "react-router-dom";
-import useRegister from "../hook/useRegister";
+// import useRegister from "../hook/useRegister";
+import useOrganizer from "../hook/useOrganizer";
 
 const Dashboard = () => {
 //   const [register] = useRegister();
 
   //TODO: get is admin value from the database
-  const isOrganizer = true;
+  const [isOrganizer] = useOrganizer()
 
   return (
     <div className="flex">
@@ -13,7 +14,7 @@ const Dashboard = () => {
       <div className="w-64 min-h-screen bg-blue-300 p-4">
         <h2 className="text-lg font-bold mb-4">Organizer Dashboard</h2>
         <ul className="menu">
-          {isOrganizer ? (
+          {isOrganizer ? 
             <>
               <li>
                 <NavLink
@@ -56,7 +57,7 @@ const Dashboard = () => {
                 </NavLink>
               </li>
             </>
-          ) : (
+           : 
             <>
               <li>
                 <NavLink
@@ -99,7 +100,7 @@ const Dashboard = () => {
                 </NavLink>
               </li>
             </>
-          )}
+          }
 
           <div className="divider"></div>
           <li>
@@ -134,3 +135,11 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
+
+
+
+
+
+

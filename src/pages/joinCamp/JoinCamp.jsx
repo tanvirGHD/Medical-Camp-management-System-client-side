@@ -12,8 +12,7 @@ const JoinCamp = ({
   image,
   description,
   healthcareProfessionalName,
-  campId,
-  setCampUserCount,
+  dateTime,
 }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);

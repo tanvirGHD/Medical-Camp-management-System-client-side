@@ -1,10 +1,10 @@
-import {  useState } from "react";
+
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../../hook/useAuth";
 
-
 const Navbar = () => {
-  const { user, logOut } = useAuth()
+  const { user, logOut } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // Handle Logout
@@ -35,11 +35,15 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 z-50 relative">
       {/* Logo and Website Name */}
       <div className="navbar-start">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <button
+            tabIndex={0}
+            className="btn btn-ghost lg:hidden"
+            onClick={toggleDropdown}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -54,13 +58,15 @@ const Navbar = () => {
                 d="M4 6h16M4 12h8m-8 6h16"
               />
             </svg>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-          >
-            {links}
-          </ul>
+          </button>
+          {isDropdownOpen && (
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content absolute bg-base-100 rounded-box z-[1000] mt-3 w-52 p-2 shadow"
+            >
+              {links}
+            </ul>
+          )}
         </div>
         <a className="btn btn-ghost text-xl">MediCare Camp</a>
       </div>
@@ -87,7 +93,7 @@ const Navbar = () => {
               <div
                 role="menu"
                 aria-label="User Menu"
-                className="absolute right-0 mt-2 w-48 bg-[#107964] shadow-lg rounded-lg"
+                className="absolute right-0 mt-2 w-48 bg-[#107964] shadow-lg rounded-lg z-[1000]"
               >
                 {/* User Name */}
                 <div className="p-3 text-white border-b">

@@ -4,7 +4,6 @@ import MainLayout from "../layout/MainLayout";
 import AvailableCamps from "../pages/AvailableCamps/AvailableCamps";
 import Login from "../pages/Entry/Login";
 import SignUp from "../pages/Entry/SignUp";
-import CampDetails from "../pages/capmDetails/CampDetails";
 import JoinCamp from "../pages/joinCamp/JoinCamp";
 import Banner from "../components/Banner.jsx/Banner/Banner";
 import PopularCamp from "../components/Home/PopularCamp";
@@ -13,6 +12,8 @@ import Register from "../pages/Dashboard/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import ManageRegister from "../pages/Dashboard/manageRegister/ManageRegister";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
+import PopularDetails from "../components/Home/PopularDetails";
+import CampDetails from "../pages/CapmDetails/CampDetails";
 
 
 
@@ -33,6 +34,11 @@ const router = createBrowserRouter([
             {
                 path: 'campDetails/:id',
                 element: <CampDetails></CampDetails>,
+                loader: ({params}) => fetch(`http://localhost:5000/camps/${params.id}`)
+            },
+            {
+                path: 'popularDetails/:id',
+                element: <PopularDetails></PopularDetails>,
                 loader: ({params}) => fetch(`http://localhost:5000/registerCamps/${params.id}`)
             },
             {
