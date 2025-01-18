@@ -232,7 +232,7 @@ const Dashboard = () => {
             <>
               <li>
                 <NavLink
-                  to="/dashboard/analytics"
+                  to="/dashboard/participantAnalytics"
                   className={({ isActive }) =>
                     isActive
                       ? "font-bold text-white"

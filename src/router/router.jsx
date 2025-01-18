@@ -19,6 +19,7 @@ import OrganizerRoute from "./OrganizerRoute";
 import ManageCamps from "../pages/Dashboard/ManageCamps/ManageCamps";
 import UpdateCamp from "../pages/Dashboard/UpdateCamp/UpdateCamp";
 import ParticipantProfile from "../pages/Dashboard/Participant/participantProfile";
+import ParticipantAnalytics from "../pages/Dashboard/Participant/ParticipantAnalytics";
 
 
 
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
             {
                 path: 'participantProfile',
                 element: <ParticipantProfile></ParticipantProfile>
+            },
+            {
+                path: 'participantAnalytics',
+                element: <ParticipantAnalytics></ParticipantAnalytics>
             },
             //admin routes
             {
