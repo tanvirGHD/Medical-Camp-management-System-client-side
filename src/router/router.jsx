@@ -16,6 +16,7 @@ import PopularDetails from "../components/Home/PopularDetails";
 import CampDetails from "../pages/CapmDetails/CampDetails";
 import AddCamp from "../pages/Dashboard/AddCamps/AddCamp";
 import OrganizerRoute from "./OrganizerRoute";
+import ManageCamps from "../pages/Dashboard/ManageCamps/ManageCamps";
 
 
 
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
             {
                 path: 'addCamp',
                 element: <OrganizerRoute><AddCamp></AddCamp></OrganizerRoute>
+            },
+            {
+                path: 'manageCamps',
+                element: <OrganizerRoute><ManageCamps></ManageCamps></OrganizerRoute>
             }
         ]
     }

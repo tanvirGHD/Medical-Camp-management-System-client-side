@@ -155,18 +155,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 import React, { useEffect, useState } from "react";
 import useAxiosPublic from "../../hook/useAxiosPublic";
 import useRegister from "../../hook/useRegister";
@@ -226,7 +214,10 @@ const AvailableCamps = () => {
 
   // Calculate pagination data
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedCamps = sortedCamps.slice(startIndex, startIndex + itemsPerPage);
+  const paginatedCamps = sortedCamps.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
   const totalPages = Math.ceil(sortedCamps.length / itemsPerPage);
 
@@ -262,13 +253,15 @@ const AvailableCamps = () => {
           className="w-full lg:w-auto bg-blue-500 text-white px-4 py-2 rounded-lg"
           onClick={() => setLayout(layout === 3 ? 2 : 3)}
         >
-          {layout === 3 ? "Switch to 2-Column Layout" : "Switch to 3-Column Layout"}
+          {layout === 3
+            ? "Switch to 2-Column Layout"
+            : "Switch to 3-Column Layout"}
         </button>
       </div>
 
       {/* Camps Display Section */}
       <div
-        className={`grid grid-cols-1 md:grid-cols-${layout} gap-6`}
+        className={`grid gap-6 ${layout === 3 ? "grid-cols-3" : "grid-cols-2"}`}
       >
         {paginatedCamps.map((camp) => {
           const registerCount = registers
