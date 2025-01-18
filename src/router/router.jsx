@@ -17,6 +17,8 @@ import CampDetails from "../pages/CapmDetails/CampDetails";
 import AddCamp from "../pages/Dashboard/AddCamps/AddCamp";
 import OrganizerRoute from "./OrganizerRoute";
 import ManageCamps from "../pages/Dashboard/ManageCamps/ManageCamps";
+import UpdateCamp from "../pages/Dashboard/UpdateCamp/UpdateCamp";
+import ParticipantProfile from "../pages/Dashboard/Participant/participantProfile";
 
 
 
@@ -70,6 +72,10 @@ const router = createBrowserRouter([
                 path: 'register',
                 element: <Register></Register>
             },
+            {
+                path: 'participantProfile',
+                element: <ParticipantProfile></ParticipantProfile>
+            },
             //admin routes
             {
                 path: 'manageRegister',
@@ -86,6 +92,11 @@ const router = createBrowserRouter([
             {
                 path: 'manageCamps',
                 element: <OrganizerRoute><ManageCamps></ManageCamps></OrganizerRoute>
+            },
+            {
+                path: 'updateCamp/:id',
+                element: <OrganizerRoute><UpdateCamp></UpdateCamp></OrganizerRoute>,
+                loader: ({params}) => fetch(`http://localhost:5000/camps/${params.id}`)
             }
         ]
     }

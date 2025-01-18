@@ -1,17 +1,43 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import useCamps from "../../../hook/useCamps";
+import Swal from "sweetalert2";
+import useAxiosRegister from "../../../hook/useAxiosRegister";
 
 const ManageCamps = () => {
-  const [camps] = useCamps();
+  const [camps,loading, refetch] = useCamps();
+  const axiosSecure = useAxiosRegister();
 
   // Update Camp Function
   const handleUpdate = (campId) => {
     
   };
+
   // Delete Camp Function
-  const handleDelete = (campId) => {
-    
+  const handleDelete = (camp) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) =>{
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/camps/${camp._id}`);
+        if (res.data.deletedCount > 0) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${camps.name} has been deleted`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      }
+    })
   };
 
   return (
@@ -38,13 +64,13 @@ const ManageCamps = () => {
                 <td className="border border-gray-300 px-4 py-2">{camp.location}</td>
                 <td className="border border-gray-300 px-4 py-2">{camp.healthcareProfessionalName}</td>
                 <td className="border border-gray-300 px-4 py-2 flex justify-center gap-2">
-                  <Link to={`/update-camp/${camp._id}`}>
+                <Link to={`/dashboard/updateCamp/${camp._id}`}>
                     <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
                       Update
                     </button>
                   </Link>
                   <button
-                    onClick={() => handleDelete(camp._id)}
+                    onClick={() => handleDelete(camp)}
                     className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
                   >
                     Delete
