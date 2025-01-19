@@ -1,10 +1,36 @@
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useState } from "react";
 
-const CheckoutForm = () => {
- const [error, setError] = useState('')
+
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { useEffect, useState } from "react";
+import useAxiosRegister from "../../../hook/useAxiosRegister";
+
+const CheckoutForm = ({ paymentInfo }) => {
+  const [error, setError] = useState("");
+  const [clientSecret, setClientSecret] = useState('')
   const stripe = useStripe();
   const elements = useElements();
+  const axiosSecure = useAxiosRegister();
+
+
+  const fee = paymentInfo.fees;
+  console.log(fee);
+  
+  useEffect(() => {
+    if (fee) {
+      axiosSecure
+        .post('/create-payment-intent', { price: fee })
+        .then(res => {
+          console.log(res.data.clientSecret);
+          setClientSecret(res.data.clientSecret);
+        })
+        .catch(error => {
+          console.error("Error creating payment intent:", error);
+        });
+    } else {
+      console.error("Fee is not available or invalid");
+    }
+  }, [fee]); 
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,14 +55,16 @@ const CheckoutForm = () => {
       setError(error.message);
     } else {
       console.log("payment method", paymentMethod);
-        setError('')
+      setError("");
     }
   };
 
   return (
-    <div className="bg-white py-16 px-8 w-10/12 sm:w-7/12 mx-auto rounded-xl shadow-lg mt-24">
+    <div className="bg-white py-16 px-8  mx-auto rounded-xl shadow-lg mt-24">
       <div className="mb-12 text-center">
-        <h1 className="text-4xl font-extrabold text-gray-800">Payment</h1>
+        <h1 className="text-4xl font-extrabold text-gray-800">
+          Payment fee: ${paymentInfo?.fees || "Loading..."}
+        </h1>
       </div>
       <form className="w-full sm:w-9/12 mx-auto" onSubmit={handleSubmit}>
         <div className="mb-6">
@@ -60,7 +88,7 @@ const CheckoutForm = () => {
         <button
           className="w-full py-3 bg-blue-600 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300"
           type="submit"
-          disabled={!stripe}
+          disabled={!stripe || !clientSecret}
         >
           Pay Now
         </button>
