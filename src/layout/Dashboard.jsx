@@ -268,7 +268,7 @@ const Dashboard = () => {
               </li>
               <li>
                 <NavLink
-                  to="/dashboard/payment-history"
+                  to="/dashboard/paymentHistory"
                   className={({ isActive }) =>
                     isActive
                       ? "font-bold text-white"

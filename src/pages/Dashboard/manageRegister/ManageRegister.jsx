@@ -1,11 +1,10 @@
-
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
 import useRegister from "../../../hook/useRegister";
 import useAxiosRegister from "../../../hook/useAxiosRegister";
 
 const ManageRegister = () => {
-  const [register, loading, refetch] = useRegister()
-  const axiosRegister = useAxiosRegister()
+  const [register, loading, refetch] = useRegister();
+  const axiosRegister = useAxiosRegister();
 
   const handleConfirm = (campId) => {
     console.log(`Confirming camp with ID: ${campId}`);
@@ -26,7 +25,7 @@ const ManageRegister = () => {
       if (result.isConfirmed) {
         axiosRegister.delete(`/registerCamps/${id}`).then((res) => {
           if (res.data.deletedCount > 0) {
-            refetch();  // Refetch to update the list
+            refetch(); // Refetch to update the list
             Swal.fire({
               title: "Deleted!",
               text: "Your file has been deleted.",
@@ -43,8 +42,9 @@ const ManageRegister = () => {
     // Your payment logic here
   };
 
+  // Updated totalFees calculation
   const totalFees = register.reduce((accumulator, currentFees) => {
-    const fee = parseFloat(currentFees.campFees.trim().replace("$", ""));
+    const fee = parseFloat(currentFees.campFees); // Ensure it's a number
     return accumulator + (isNaN(fee) ? 0 : fee);
   }, 0);
 
@@ -121,11 +121,3 @@ const ManageRegister = () => {
 };
 
 export default ManageRegister;
-
-
-
-
-
-
-
-

@@ -17,6 +17,8 @@ const PaymentModal = ({ paymentModal, setPaymentModal }) => {
     if (paymentModal && paymentModal.campFees) {
       setPaymentInfo({
         fees: paymentModal.campFees,
+        campName: paymentModal.campName,
+        participantName: paymentModal.participantName
       });
     }
   }, [paymentModal]); // Dependency on paymentModal to re-render when it changes

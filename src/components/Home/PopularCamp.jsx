@@ -14,10 +14,11 @@ const PopularCamp = () => {
         const data = response.data;
         // Combine camps with the same name and sum their registerCount
         const combinedCamps = data.reduce((acc, camp) => {
-          const existingCamp = acc.find((c) => c.campName === camp.campName);
+          // Compare camp names case-insensitively
+          const existingCamp = acc.find((c) => c.campName.toLowerCase() === camp.campName.toLowerCase());
           if (existingCamp) {
             // If a camp with the same name exists, add to its registerCount
-            existingCamp.registerCount -= camp.registerCount;
+            existingCamp.registerCount += camp.registerCount;
           } else {
             // If it's a new camp name, add it to the array
             acc.push({ ...camp });

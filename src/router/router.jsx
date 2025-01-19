@@ -20,6 +20,7 @@ import ManageCamps from "../pages/Dashboard/ManageCamps/ManageCamps";
 import UpdateCamp from "../pages/Dashboard/UpdateCamp/UpdateCamp";
 import ParticipantProfile from "../pages/Dashboard/Participant/participantProfile";
 import ParticipantAnalytics from "../pages/Dashboard/Participant/ParticipantAnalytics";
+import PaymentHistory from "../pages/Dashboard/Payment/PaymentHistory";
 
 
 
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
             {
                 path: 'participantAnalytics',
                 element: <ParticipantAnalytics></ParticipantAnalytics>
+            },
+            {
+                path: 'paymentHistory',
+                element: <PaymentHistory></PaymentHistory>
             },
             //admin routes
             {

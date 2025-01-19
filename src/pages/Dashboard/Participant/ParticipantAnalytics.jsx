@@ -26,7 +26,9 @@ const ParticipantAnalytics = () => {
         console.log("API Response:", data);
         const formattedData = data.map((camp) => ({
           name: camp.campName,
-          fees: parseFloat(camp.campFees.replace("$", "")), // Remove $ sign and convert to number
+          fees: typeof camp.campFees === "string" 
+            ? parseFloat(camp.campFees.replace("$", "")) // Remove $ sign and convert to number
+            : camp.campFees, // Use number directly if already a number
           registerCount: camp.registerCount, // Number of participants
         }));
         setCampData(formattedData);
@@ -42,7 +44,7 @@ const ParticipantAnalytics = () => {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">
-        Participant Analytics {campData.length}
+        Participant Analytics ({campData.length})
       </h1>
       {isLoading ? (
         <p>Loading data...</p>
