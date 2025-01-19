@@ -18,7 +18,7 @@ const useAxiosRegister = () => {
         return Promise.reject(error);
     })
 
-    //intercepts 401 and 403 status 
+    // intercepts 401 and 403 status 
     axiosRegister.interceptors.response.use(function(response){
         return response;
     }, async(error) =>{
