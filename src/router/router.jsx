@@ -21,6 +21,9 @@ import UpdateCamp from "../pages/Dashboard/UpdateCamp/UpdateCamp";
 import ParticipantProfile from "../pages/Dashboard/Participant/participantProfile";
 import ParticipantAnalytics from "../pages/Dashboard/Participant/ParticipantAnalytics";
 import PaymentHistory from "../pages/Dashboard/Payment/PaymentHistory";
+import Organizer from "../pages/Organizer/Organizer";
+import UpdateOrganizer from "../pages/Dashboard/UpdateCamp/UpdateOrganizer";
+import FeedBack from "../pages/Feedback/FeedBack";
 
 
 
@@ -37,6 +40,10 @@ const router = createBrowserRouter([
             {
                 path: 'availableCamps',
                 element: <AvailableCamps></AvailableCamps>
+            },
+            {
+                path: 'feedback',
+                element: <FeedBack></FeedBack>
             },
             {
                 path: 'campDetails/:id',
@@ -87,6 +94,15 @@ const router = createBrowserRouter([
                 element: <PaymentHistory></PaymentHistory>
             },
             //admin routes
+            {
+                path: 'organizerProfile',
+                element: <OrganizerRoute><Organizer></Organizer> </OrganizerRoute>
+            },
+            {
+                path: 'updateOrganizer/:id',
+                element: <OrganizerRoute><UpdateOrganizer></UpdateOrganizer> </OrganizerRoute>,
+                loader: ({params}) => fetch(`https://y-omega-ten.vercel.app/users/${params.id}`)
+            },
             {
                 path: 'manageRegister',
                 element: <OrganizerRoute><ManageRegister></ManageRegister></OrganizerRoute>

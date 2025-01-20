@@ -43,7 +43,7 @@ const PaymentHistory = () => {
                   <td className="py-2 px-6 border-b">
                     <span
                       className={`px-3 py-1 rounded-full text-sm ${
-                        payment.status === "pending"
+                        payment.status === "sucess"
                           ? "bg-yellow-200 text-yellow-800"
                           : "bg-green-200 text-green-800"
                       }`}

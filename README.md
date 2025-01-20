@@ -4,10 +4,8 @@
 Develop a **Medical Camp Management System (MCMS)** using the MERN stack. This system helps organizers and participants easily manage and coordinate medical camps.
 
 ## Live Site URL
-[Enter Live Site Link Here]
+[[Enter Live Site Link Here](https://medicare-camp.web.app/)]
 
-## GitHub Repository
-- **Frontend Repository**: [Enter Client Repo Link Here]
 
 ---
 
@@ -59,7 +57,7 @@ Develop a **Medical Camp Management System (MCMS)** using the MERN stack. This s
    ```bash
    npm start
    ```
-   The server will be running on `http://localhost:5000` by default.
+   The server will be running on `https://y-omega-ten.vercel.app` by default.
 
 ## **Run in Development Mode**:
    ```bash

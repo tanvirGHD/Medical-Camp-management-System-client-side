@@ -18,7 +18,6 @@ const AddCamp = () => {
   const axiosSecure = useAxiosRegister();
 
   const onSubmit = async(data) => {
-    console.log("Form Data Submitted:", data);
     // image upload to imgbb and then get an url
     const imageFile = {image: data.image[0]}
     const res = await axiosPublic.post(image_hosting_api, imageFile, {
@@ -38,7 +37,6 @@ const AddCamp = () => {
         }
         //
         const campRes = await axiosSecure.post('/camps',campsItem);
-        console.log(campRes.data)
         if(campRes.data.insertedId){
             // show success popup
             reset();
@@ -51,7 +49,6 @@ const AddCamp = () => {
               });
         }
     }
-    console.log('with img url', res.data);
 
   };
 

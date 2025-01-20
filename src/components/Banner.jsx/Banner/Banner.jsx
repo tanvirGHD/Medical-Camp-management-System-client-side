@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from '../../Home/Home';
 import PopularCamp from '../../Home/PopularCamp';
+import FeedBack from '../../../pages/Feedback/FeedBack';
 
 const Banner = () => {
     return (
@@ -8,6 +9,7 @@ const Banner = () => {
             <Home></Home>
             <div className='max-w-7xl mx-auto'>
             <PopularCamp></PopularCamp>
+            <FeedBack></FeedBack>
             </div>
         </div>
     );

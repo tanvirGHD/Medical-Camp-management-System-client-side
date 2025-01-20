@@ -1,6 +1,3 @@
-
-
-
 import React, { useEffect, useState } from "react";
 import useAxiosPublic from "../../hook/useAxiosPublic";
 import useRegister from "../../hook/useRegister";
@@ -69,7 +66,7 @@ const AvailableCamps = () => {
 
   return (
     <div className="min-h-screen py-10 px-4">
-      <h1 className="text-4xl font-bold text-center mb-6">Available Camps</h1>
+      <h1 className="text-4xl font-bold text-center mb-6 text-[#336699]">Available Camps</h1>
 
       {/* Additional Features Section */}
       <div className="flex flex-col lg:flex-row items-center justify-between gap-4 mb-6">
@@ -107,7 +104,9 @@ const AvailableCamps = () => {
 
       {/* Camps Display Section */}
       <div
-        className={`grid gap-6 ${layout === 3 ? "grid-cols-3" : "grid-cols-2"}`}
+        className={`grid gap-6 ${
+          layout === 3 ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3" : "grid-cols-1 sm:grid-cols-2"
+        }`}
       >
         {paginatedCamps.map((camp) => {
           const registerCount = registers
@@ -160,11 +159,11 @@ const AvailableCamps = () => {
         {Array.from({ length: totalPages }, (_, index) => (
           <button
             key={index}
-            className={`px-4 py-2 border rounded ${
+            className={`px-4 py-2 border-2 border-gray-300 rounded-md ${
               currentPage === index + 1
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-black"
-            }`}
+                ? "bg-blue-500 text-white font-semibold shadow-md"
+                : "bg-gray-200 text-black hover:bg-gray-300"
+            } transition duration-200 ease-in-out`}
             onClick={() => setCurrentPage(index + 1)}
           >
             {index + 1}

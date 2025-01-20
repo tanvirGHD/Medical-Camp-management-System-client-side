@@ -94,7 +94,7 @@ const CheckoutForm = ({ paymentInfo }) => {
                 transactionId: paymentIntent.id,
                 campName: campName,
                 date: new Date(),
-                status: 'pending',
+                status: 'Success',
             }
 
             const res =await axiosSecure.post('/payments', payment);

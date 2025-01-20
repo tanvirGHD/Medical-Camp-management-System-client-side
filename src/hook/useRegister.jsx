@@ -1,10 +1,4 @@
 
-
-
-
-
-
-
 import { useQuery } from '@tanstack/react-query';
 import useAxiosRegister from './useAxiosRegister';
 import useAuth from './useAuth';

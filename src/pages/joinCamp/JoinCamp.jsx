@@ -32,15 +32,15 @@ const JoinCamp = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
     const form = e.target;
-
+  
     // Collecting form data
     const age = form.age.value;
     const phone = form.phone.value;
     const gender = form.gender.value;
     const emergencyContact = form.emergencyContact.value;
-
+  
     const registrationData = {
       campName,
       campFees,
@@ -55,30 +55,46 @@ const JoinCamp = ({
       gender,
       emergencyContact,
     };
-
+  
     try {
       // Replace fetch with axios
-      axiosRegister.post("/registerCamps", registrationData, {
+      const response = await axiosRegister.post("/registerCamps", registrationData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
+  
+      // Check if the response is successful
+      if (response.status === 200) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Your registration has been saved!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        
+        // Redirect after a successful registration
+        navigate("/dashboard/register");
+      } else {
+        throw new Error("Registration failed");
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
       Swal.fire({
         position: "top-end",
         icon: "success",
-        title: "Your work has been saved",
+        title: "Your registration has been saved!",
         showConfirmButton: false,
         timer: 1500,
       });
-      navigate('/dashboard/register');
-
-    } catch (error) {
-      console.error("Error during registration:", error);
-      alert("An error occurred during registration. Please try again.");
+      
+      navigate("/dashboard/register");
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <>
@@ -97,11 +113,12 @@ const JoinCamp = ({
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="flex space-x-10">
                 <div className="flex-1 space-y-4">
+                  {/* Camp Details (readonly fields) */}
                   <div className="flex flex-col">
                     <label className="text-lg font-semibold text-gray-700">Camp Name</label>
                     <input
-                      type="URL"
-                      value={image || "Camp Photo"}
+                      type="text"
+                      value={campName || "Camp Name"}
                       className="bg-gray-100 p-3 rounded-lg border border-gray-300"
                       readOnly
                     />
@@ -111,15 +128,6 @@ const JoinCamp = ({
                     <input
                       type="text"
                       value={description || "Camp description"}
-                      className="bg-gray-100 p-3 rounded-lg border border-gray-300"
-                      readOnly
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label className="text-lg font-semibold text-gray-700">Camp Name</label>
-                    <input
-                      type="text"
-                      value={campName || "Camp Name"}
                       className="bg-gray-100 p-3 rounded-lg border border-gray-300"
                       readOnly
                     />
@@ -154,6 +162,7 @@ const JoinCamp = ({
                 </div>
 
                 <div className="flex-1 space-y-4">
+                  {/* Participant Details */}
                   <div className="flex flex-col">
                     <label className="text-lg font-semibold text-gray-700">Participant Name</label>
                     <input

@@ -62,3 +62,20 @@ const PaymentModal = ({ paymentModal, setPaymentModal }) => {
 };
 
 export default PaymentModal;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
