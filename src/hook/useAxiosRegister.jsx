@@ -4,7 +4,7 @@ import axios from "axios";
 // import useAuth from "./useAuth";
 
 const axiosRegister = axios.create({
-    baseURL: 'http://localhost:5000'//secure
+    baseURL: 'https://y-omega-ten.vercel.app'//secure
 })
 const useAxiosRegister = () => {
     // const navigate = useNavigate();

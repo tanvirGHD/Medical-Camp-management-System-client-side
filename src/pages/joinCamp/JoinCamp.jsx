@@ -84,7 +84,7 @@ const JoinCamp = ({
     <>
       <button
         onClick={handleOpen}
-        className="p-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out"
+        className="p-3 bg-[#336699] text-white rounded-lg shadow-md hover:bg-[#225383] transition duration-300 ease-in-out"
       >
         Join Now Camps
       </button>

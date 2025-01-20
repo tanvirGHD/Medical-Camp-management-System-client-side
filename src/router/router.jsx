@@ -41,12 +41,12 @@ const router = createBrowserRouter([
             {
                 path: 'campDetails/:id',
                 element: <CampDetails></CampDetails>,
-                loader: ({params}) => fetch(`http://localhost:5000/camps/${params.id}`)
+                loader: ({params}) => fetch(`https://y-omega-ten.vercel.app/camps/${params.id}`)
             },
             {
                 path: 'popularDetails/:id',
                 element: <PopularDetails></PopularDetails>,
-                loader: ({params}) => fetch(`http://localhost:5000/registerCamps/${params.id}`)
+                loader: ({params}) => fetch(`https://y-omega-ten.vercel.app/registerCamps/${params.id}`)
             },
             {
                 path: 'joinCamp',
@@ -106,7 +106,7 @@ const router = createBrowserRouter([
             {
                 path: 'updateCamp/:id',
                 element: <OrganizerRoute><UpdateCamp></UpdateCamp></OrganizerRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/camps/${params.id}`)
+                loader: ({params}) => fetch(`https://y-omega-ten.vercel.app/camps/${params.id}`)
             }
         ]
     }

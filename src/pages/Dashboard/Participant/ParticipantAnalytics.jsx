@@ -15,7 +15,7 @@ const ParticipantAnalytics = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/registerCamps") // API endpoint
+    fetch("https://y-omega-ten.vercel.app/registerCamps") // API endpoint
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");

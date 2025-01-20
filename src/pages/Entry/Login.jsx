@@ -52,7 +52,7 @@ const Login = () => {
   };
 
   return (
-    <div className="card bg-blue-50 w-full max-w-4xl mx-auto my-10 md:mt-20 p-6 rounded-lg shadow-lg flex flex-col md:flex-row items-center justify-center gap-6">
+    <div className="card bg-blue-50 w-full max-w-4xl py-10 mx-auto md:mt-20 p-6 rounded-lg shadow-lg flex flex-col md:flex-row items-center justify-center gap-6">
       {/* Animation Section */}
       <div className="flex-1 flex items-center justify-center">
         <div className="w-48 md:w-64">

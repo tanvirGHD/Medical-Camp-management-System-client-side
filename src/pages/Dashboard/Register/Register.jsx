@@ -23,7 +23,7 @@ const Register = () => {
       if (result.isConfirmed) {
         axiosRegister.delete(`/registerCamps/${id}`).then((res) => {
           if (res.data.deletedCount > 0) {
-            refetch();
+            refetch()
             Swal.fire(
               "Cancelled!",
               "Your registration has been cancelled.",
@@ -100,7 +100,7 @@ const Register = () => {
               </td>
               <td className="border border-gray-400 px-4 py-2">
                 <button
-                  className="bg-blue-300 p-1"
+                  className="bg-blue-300 p-2 rounded-lg"
                   onClick={() => setPaymentModal(camp)} // Open Payment Modal
                 >
                   Pay

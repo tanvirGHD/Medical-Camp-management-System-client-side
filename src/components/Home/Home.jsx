@@ -25,13 +25,25 @@ const Home = () => {
       }
     >
       <div>
-        <img src={banner1} className="h-[600px] w-full " alt="Slide 1" />
+        <img
+          src={banner1}
+          className="h-[200px] md:h-[400px] lg:h-[600px] w-full object-cover"
+          alt="Slide 1"
+        />
       </div>
       <div>
-        <img src={banner2} className="h-[600px] w-full" alt="Slide 2" />
+        <img
+          src={banner2}
+          className="h-[200px] md:h-[400px] lg:h-[600px] w-full object-cover"
+          alt="Slide 2"
+        />
       </div>
       <div>
-        <img src={banner3} className="h-[600px] w-full" alt="Slide 3" />
+        <img
+          src={banner3}
+          className="h-[200px] md:h-[400px] lg:h-[600px] w-full object-cover"
+          alt="Slide 3"
+        />
       </div>
     </Carousel>
   );

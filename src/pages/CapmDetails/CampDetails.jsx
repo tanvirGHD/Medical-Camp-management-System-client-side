@@ -14,7 +14,7 @@ const CampDetails = () => {
 
   return (
     <div className="py-10">
-      <h2 className="text-4xl font-bold text-center mb-6">
+      <h2 className="text-4xl font-bold text-center text-[#123b64] mb-6">
         Camp Details: {camp.campName}
       </h2>
 
