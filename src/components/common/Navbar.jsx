@@ -1,8 +1,8 @@
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { IoIosCloseCircle } from "react-icons/io";
 import { RiMenuFoldFill } from "react-icons/ri";
 import logo from "../../assets/logo2.png";
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import useAuth from "../../hook/useAuth";
 
 const Navbar = () => {
@@ -12,123 +12,187 @@ const Navbar = () => {
 
   // Handle Logout
   const handleLogOut = () => {
-    logOut()
-      .then(() => {
-        console.log("Logged out successfully!");
-        setIsProfileMenuOpen(false); // Close profile menu
-      })
-      .catch((error) => console.error(error));
+    if (window.confirm("Are you sure you want to log out?")) {
+      logOut()
+        .then(() => {
+          console.log("Logged out successfully!");
+          setIsProfileMenuOpen(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          alert("Logout failed. Please try again.");
+        });
+    }
   };
+
+  // Close profile menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        isProfileMenuOpen &&
+        !event.target.closest(".profile-menu-container")
+      ) {
+        setIsProfileMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isProfileMenuOpen]);
 
   // Navigation Links
   const links = (
     <>
-      <li className="md:text-lg">
+      <li className="text-lg font-medium transition duration-300 hover:text-lime-400">
         <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
           Home
         </Link>
       </li>
-      <li className="md:text-lg">
+      <li className="text-lg font-medium transition duration-300 hover:text-lime-400">
         <Link to="/availableCamps" onClick={() => setIsMobileMenuOpen(false)}>
           Available Camps
+        </Link>
+      </li>
+      <li className="text-lg font-medium transition duration-300 hover:text-lime-400">
+        <Link to="/about" onClick={() => setIsMobileMenuOpen(false)}>
+          About Us
         </Link>
       </li>
     </>
   );
 
   return (
-<div className="navbar bg-[#336699] text-white z-50 sticky top-0">
-  {/* Logo and Mobile Menu Toggle */}
-  <div className="navbar-start lg:hidden flex items-center">
-    <button
-      className="btn btn-ghost lg:hidden flex items-center"
-      onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-    >
-      {isMobileMenuOpen ? (
-        <IoIosCloseCircle className="h-7 w-7" />
-      ) : (
-        <RiMenuFoldFill className="h-7 w-7" />
-      )}
-    </button>
-  </div>
-
-  {/* Logo Center on Mobile */}
-  <div className="navbar-center lg:navbar-start">
-    <Link to="/" className="flex items-center justify-center w-full lg:w-auto">
-      <img
-        src={logo}
-        alt="MediCare Camp Logo"
-        className="h-16 mx-auto lg:mx-0"
-      />
-    </Link>
-  </div>
-
-  {/* Dropdown Menu for Mobile */}
-  {isMobileMenuOpen && (
-    <div className="absolute top-full left-0 w-full bg-[#336699] z-[1000] shadow-md lg:hidden">
-      <ul className="menu menu-compact p-4 text-white">
-        {links}
-      </ul>
-    </div>
-  )}
-
-  {/* Desktop Links */}
-  <div className="hidden lg:navbar-center lg:flex">
-    <ul className="menu menu-horizontal px-1">{links}</ul>
-  </div>
-
-  {/* Profile Picture or Join Us Button */}
-  <div className="navbar-end">
-    {user ? (
-      <div className="relative">
-        <img
-          src={user.photoURL || "/assets/default-avatar.png"}
-          alt="User Profile"
-          className="w-10 h-10 rounded-full cursor-pointer"
-          onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-        />
-        {isProfileMenuOpen && (
-          <div
-            role="menu"
-            aria-label="User Menu"
-            className="absolute right-0 mt-2 w-48 bg-[#336699] shadow-lg rounded-lg z-[1000]"
-          >
-            <div className="p-3 text-white border-b">
-              {user.displayName || "User"}
-            </div>
-            <Link
-              to="/dashboard/register"
-              className="block px-4 py-2 text-white hover:bg-[#075243]"
-              onClick={() => setIsProfileMenuOpen(false)}
-            >
-              Dashboard
-            </Link>
-            <button
-              onClick={handleLogOut}
-              className="block w-full text-left px-4 py-2 text-white hover:bg-[#075243]"
-            >
-              LogOut
-            </button>
-          </div>
-        )}
+    <nav className="bg-[#336699] text-white shadow-md sticky top-0 z-50">
+      {/* Mobile Menu Toggle */}
+      <div className="flex items-center justify-between px-4 lg:hidden">
+        <button
+          className="p-2 rounded-full hover:bg-[#2a5278] transition duration-300"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle Mobile Menu"
+        >
+          {isMobileMenuOpen ? (
+            <IoIosCloseCircle className="h-7 w-7 text-red-500" />
+          ) : (
+            <RiMenuFoldFill className="h-7 w-7 text-white" />
+          )}
+        </button>
+        <Link to="/" className="flex items-center">
+          <img
+            src={logo}
+            alt="MediCare Camp Logo"
+            className="h-12 transition duration-300 hover:scale-105"
+          />
+        </Link>
       </div>
-    ) : (
-      <Link
-        to="/login"
-        className="flex items-center gap-2 md:p-3 p-2 bg-[#d2e4f7] hover:bg-[#bcd9f2] font-bold rounded-lg text-lime-700 hover:text-lime-900 transition duration-300"
-      >
-        <span>Join Us</span>
-        <img
-          src="https://img.icons8.com/?size=100&id=11686&format=png&color=000000"
-          alt="Join Icon"
-          className="w-5 h-5"
-        />
-      </Link>
-    )}
-  </div>
-</div>
 
+      {/* Desktop Navigation */}
+      <div className="hidden lg:flex justify-between items-center px-8 py-4">
+        <Link to="/" className="flex items-center">
+          <img
+            src={logo}
+            alt="MediCare Camp Logo"
+            className="h-12 transition duration-300 hover:scale-105"
+          />
+        </Link>
+        <ul className="flex space-x-6 text-lg font-medium">{links}</ul>
+        <div className="relative profile-menu-container">
+          {user ? (
+            <div className="flex items-center gap-2">
+              <img
+                src={user.photoURL || "https://via.placeholder.com/40"}
+                alt="User Profile"
+                className="w-10 h-10 rounded-full cursor-pointer border-2 border-white hover:border-lime-400 transition duration-300"
+                onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+              />
+              {isProfileMenuOpen && (
+                <div className="absolute right-0 md:mt-52 w-48 bg-[#336699] shadow-lg rounded-lg overflow-hidden z-10">
+                  <div className="p-3 text-white border-b border-lime-400">
+                    {user.displayName || "Guest"}
+                  </div>
+                  <Link
+                    to="/dashboard"
+                    className="block px-4 py-2 text-white hover:bg-[#075243] transition duration-300"
+                    onClick={() => setIsProfileMenuOpen(false)}
+                  >
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={handleLogOut}
+                    className="block w-full text-left px-4 py-2 text-white hover:bg-[#075243] transition duration-300"
+                  >
+                    Log Out
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link
+              to="/login"
+              className="flex items-center gap-2 px-4 py-2 bg-[#d2e4f7] hover:bg-[#bcd9f2] font-bold rounded-lg text-lime-700 hover:text-lime-900 transition duration-300"
+            >
+              <span>Join Us</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                />
+              </svg>
+            </Link>
+          )}
+        </div>
+      </div>
 
+      {/* Mobile Navigation */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden bg-[#336699] py-4 px-6 space-y-4">
+          <ul className="space-y-2 text-lg font-medium ">{links}</ul>
+          {user ? (
+            <div className="flex flex-col space-y-2">
+              <Link
+                to="/dashboard"
+                className="px-4 py-2 bg-[#075243] text-white rounded-lg hover:bg-[#054135] transition duration-300"
+              >
+                Dashboard
+              </Link>
+              <button
+                onClick={handleLogOut}
+                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-300"
+              >
+                Log Out
+              </button>
+            </div>
+          ) : (
+            <Link
+              to="/login"
+              className="flex items-center gap-2 px-4 py-2 bg-[#d2e4f7] hover:bg-[#bcd9f2] font-bold rounded-lg text-lime-700 hover:text-lime-900 transition duration-300"
+            >
+              <span>Join Us</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                />
+              </svg>
+            </Link>
+          )}
+        </div>
+      )}
+    </nav>
   );
 };
 

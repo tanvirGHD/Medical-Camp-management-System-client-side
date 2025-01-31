@@ -27,21 +27,21 @@ const Home = () => {
       <div>
         <img
           src={banner1}
-          className="h-[200px] md:h-[400px] lg:h-[600px] w-full object-cover"
+          className="h-[250px] md:h-[400px] lg:h-[600px] w-full "
           alt="Slide 1"
         />
       </div>
       <div>
         <img
           src={banner2}
-          className="h-[200px] md:h-[400px] lg:h-[600px] w-full object-cover"
+          className="h-[250px] md:h-[400px] lg:h-[600px] w-full "
           alt="Slide 2"
         />
       </div>
       <div>
         <img
           src={banner3}
-          className="h-[200px] md:h-[400px] lg:h-[600px] w-full object-cover"
+          className="h-[250px] md:h-[400px] lg:h-[600px] w-full "
           alt="Slide 3"
         />
       </div>

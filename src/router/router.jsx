@@ -24,6 +24,7 @@ import PaymentHistory from "../pages/Dashboard/Payment/PaymentHistory";
 import Organizer from "../pages/Organizer/Organizer";
 import UpdateOrganizer from "../pages/Dashboard/UpdateCamp/UpdateOrganizer";
 import FeedBack from "../pages/Feedback/FeedBack";
+import AboutUs from "../pages/StaticPage/AboutUs";
 
 
 
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
             {
                 path: 'popularCamp',
                 element: <PopularCamp></PopularCamp>
+            },
+            {
+                path: 'about',
+                element: <AboutUs></AboutUs>
             },
             {
                 path: 'login',

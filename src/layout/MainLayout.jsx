@@ -7,7 +7,7 @@ const MainLayout = () => {
     const location = useLocation();
     const noHeaderFooter = location.pathname.includes('login') || location.pathname.includes('signup')
   return (
-    <div>
+    <div className="bg-[#e7eaff]">
       { noHeaderFooter || <Navbar></Navbar>}
       <div className={`${location.pathname === "/" ? "w-full" : "max-w-7xl"} mx-auto`}>
         <Outlet></Outlet>

@@ -12,7 +12,7 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
     <QueryClientProvider client={queryClient}>
-        <div className="bg-[#e7eaff]">
+        <div>
           <RouterProvider router={router} />
         </div>
       </QueryClientProvider>

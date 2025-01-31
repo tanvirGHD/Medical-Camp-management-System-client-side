@@ -6,13 +6,14 @@ const ManageRegister = () => {
   const [register, loading, refetch] = useRegister();
   const axiosRegister = useAxiosRegister();
 
+  // Handle Confirm Action
   const handleConfirm = (campId) => {
     console.log(`Confirming camp with ID: ${campId}`);
     // Your confirmation logic here
   };
 
+  // Handle Cancel Action
   const handleCancel = (id) => {
-    console.log(`Cancelling registration for camp with ID: ${id}`);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -20,15 +21,15 @@ const ManageRegister = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, cancel it!",
     }).then((result) => {
       if (result.isConfirmed) {
         axiosRegister.delete(`/registerCamps/${id}`).then((res) => {
           if (res.data.deletedCount > 0) {
             refetch(); // Refetch to update the list
             Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
+              title: "Cancelled!",
+              text: "The registration has been cancelled.",
               icon: "success",
             });
           }
@@ -37,85 +38,147 @@ const ManageRegister = () => {
     });
   };
 
+  // Handle Pay Action
   const handlePay = (campId) => {
     console.log(`Paying for camp with ID: ${campId}`);
     // Your payment logic here
   };
 
-  // Updated totalFees calculation
+  // Calculate Total Fees
   const totalFees = register.reduce((accumulator, currentFees) => {
     const fee = parseFloat(currentFees.campFees); // Ensure it's a number
     return accumulator + (isNaN(fee) ? 0 : fee);
   }, 0);
 
   return (
-    <div>
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-3xl">Total Registration: {register.length}</h2>
-        <h2 className="text-3xl">Total Fees: ${totalFees}</h2>
+    <div className="min-h-screen p-6 bg-gray-50">
+      {/* Header Section */}
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+          Total Registration: {register.length}
+        </h2>
+        <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-teal-600">
+          Total Fees: ${totalFees.toFixed(2)}
+        </h2>
       </div>
-      <table className="table-auto border-collapse border border-gray-400 w-full">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="border border-gray-400 px-4 py-2">#</th>
-            <th className="border border-gray-400 px-4 py-2">Camp Name</th>
-            <th className="border border-gray-400 px-4 py-2">Camp Fees</th>
-            <th className="border border-gray-400 px-4 py-2">Participant Name</th>
-            <th className="border border-gray-400 px-4 py-2">Payment Status</th>
-            <th className="border border-gray-400 px-4 py-2">Confirmation Status</th>
-            <th className="border border-gray-400 px-4 py-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {register.map((camp, index) => (
-            <tr key={camp._id} className="text-center">
-              <td className="border border-gray-400 px-4 py-2">{index + 1}</td>
-              <td className="border border-gray-400 px-4 py-2">{camp.campName}</td>
-              <td className="border border-gray-400 px-4 py-2">{camp.campFees}</td>
-              <td className="border border-gray-400 px-4 py-2">{camp.participantName}</td>
-              <td className="border border-gray-400 px-4 py-2">
-                {camp.paymentStatus === "paid" ? "Paid" : "Unpaid"}
-              </td>
-              <td className="border border-gray-400 px-4 py-2">
-                <button
-                  className={`${
-                    camp.paymentStatus === "paid" &&
-                    camp.confirmationStatus === "Pending"
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-300 text-gray-500"
-                  } px-4 py-2 rounded`}
-                  disabled={
-                    camp.paymentStatus !== "paid" ||
-                    camp.confirmationStatus === "Confirmed"
-                  }
-                  onClick={() => handleConfirm(camp._id)}
-                >
-                  {camp.confirmationStatus === "Confirmed"
-                    ? "Confirmed"
-                    : "Pending"}
-                </button>
-              </td>
-              <td className="border border-gray-400 px-4 py-2">
-                <button
-                  className={`${
-                    camp.paymentStatus === "paid" &&
-                    camp.confirmationStatus === "Confirmed"
-                      ? "bg-gray-300 text-gray-500"
-                      : "bg-red-500 text-white"
-                  } px-4 py-2 rounded`}
-                  onClick={() => handleCancel(camp._id)}
-                  disabled={
-                    camp.paymentStatus === "paid" &&
-                    camp.confirmationStatus === "Confirmed"
-                  }
-                >
-                  Cancel
-                </button>
-              </td>
+
+      {/* Table Section */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+          {/* Table Header */}
+          <thead>
+            <tr className="bg-gradient-to-r from-blue-500 to-purple-500  text-white">
+              <th className="px-4 py-3 text-left text-sm font-semibold uppercase tracking-wider">
+                #
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-semibold uppercase tracking-wider">
+                Camp Name
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-semibold uppercase tracking-wider">
+                Camp Fees
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-semibold uppercase tracking-wider">
+                Participant Name
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-semibold uppercase tracking-wider">
+                Payment Status
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-semibold uppercase tracking-wider">
+                Confirmation Status
+              </th>
+              <th className="px-4 py-3 text-left text-sm font-semibold uppercase tracking-wider">
+                Actions
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          {/* Table Body */}
+          <tbody className="divide-y divide-gray-200">
+            {register.map((camp, index) => (
+              <tr
+                key={camp._id}
+                className="hover:bg-gray-50 transition-colors duration-300"
+              >
+                {/* Index */}
+                <td className="px-4 py-3 text-sm text-gray-700 text-center">
+                  {index + 1}
+                </td>
+
+                {/* Camp Name */}
+                <td className="px-4 py-3 text-sm text-gray-700">
+                  {camp.campName}
+                </td>
+
+                {/* Camp Fees */}
+                <td className="px-4 py-3 text-sm text-gray-700">
+                  ${camp.campFees}
+                </td>
+
+                {/* Participant Name */}
+                <td className="px-4 py-3 text-sm text-gray-700">
+                  {camp.participantName}
+                </td>
+
+                {/* Payment Status */}
+                <td className="px-4 py-3 text-sm text-gray-700">
+                  <span
+                    className={`${
+                      camp.paymentStatus === "paid"
+                        ? "bg-green-200 text-green-800"
+                        : "bg-red-200 text-red-800"
+                    } px-2 py-1 rounded-full text-xs font-medium`}
+                  >
+                    {camp.paymentStatus === "paid" ? "Paid" : "Unpaid"}
+                  </span>
+                </td>
+
+                {/* Confirmation Status */}
+                <td className="px-4 py-3 text-sm text-gray-700">
+                  <button
+                    className={`${
+                      camp.paymentStatus === "paid" &&
+                      camp.confirmationStatus === "Pending"
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    } px-4 py-2 rounded-lg transition-all duration-300`}
+                    disabled={
+                      camp.paymentStatus !== "paid" ||
+                      camp.confirmationStatus === "Confirmed"
+                    }
+                    onClick={() => handleConfirm(camp._id)}
+                    aria-label={`Confirm registration for ${camp.participantName}`}
+                  >
+                    {camp.confirmationStatus === "Confirmed"
+                      ? "Confirmed"
+                      : "Pending"}
+                  </button>
+                </td>
+
+                {/* Actions */}
+                <td className="px-4 py-3 text-sm text-gray-700 flex justify-center gap-2">
+                  {/* Cancel Button */}
+                  <button
+                    className={`${
+                      camp.paymentStatus === "paid" &&
+                      camp.confirmationStatus === "Confirmed"
+                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                        : "bg-red-500 text-white hover:bg-red-600"
+                    } px-4 py-2 rounded-lg transition-all duration-300`}
+                    onClick={() => handleCancel(camp._id)}
+                    disabled={
+                      camp.paymentStatus === "paid" &&
+                      camp.confirmationStatus === "Confirmed"
+                    }
+                    aria-label={`Cancel registration for ${camp.participantName}`}
+                  >
+                    Cancel
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

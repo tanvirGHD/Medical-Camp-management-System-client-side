@@ -103,6 +103,7 @@ const Register = () => {
       {/* Payment Modal */}
       {paymentModal && (
         <PaymentModal paymentModal={paymentModal} setPaymentModal={setPaymentModal} />
+        
       )}
     </div>
   );
