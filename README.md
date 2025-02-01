@@ -39,6 +39,9 @@ Develop a **Medical Camp Management System (MCMS)** using the MERN stack. This s
     - Proper modals for form submissions and errors.
 12. **Animations**: Framer Motion or AOS for smooth UI interactions.
 
+13.**Payment Handling**:
+   - Integration with payment gateways (e.g., Stripe or PayPal).
+   - APIs for payment processing and transaction history.
 ---
 
 ## Technical Specifications 

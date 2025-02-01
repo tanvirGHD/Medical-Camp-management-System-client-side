@@ -182,7 +182,7 @@ const AvailableCamps = () => {
                   <strong>Register Count:</strong> {registerCount || 0}
                 </p>
                 <Link to={`/campDetails/${camp._id}`}>
-                  <button className="w-full text-white py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition-all duration-300">
+                  <button className="w-full text-white py-2 rounded-lg bg-[#4B8FD4] hover:bg-[#3671a6] transition-colors duration-300">
                     Camp Details
                   </button>
                 </Link>

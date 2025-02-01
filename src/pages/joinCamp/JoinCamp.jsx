@@ -97,7 +97,7 @@ const JoinCamp = ({
       {/* Join Now Button */}
       <button
         onClick={handleOpen}
-        className="p-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg shadow-md hover:from-blue-600 hover:to-purple-600 transition duration-300 ease-in-out"
+        className="px-4 text-white py-2 rounded-lg bg-[#4B8FD4] hover:bg-[#295f8f] transition-colors duration-300"
       >
         Join Now Camps
       </button>
