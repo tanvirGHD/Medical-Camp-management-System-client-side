@@ -6,7 +6,9 @@ Develop a **Medical Camp Management System (MCMS)** using the MERN stack. This s
 ## Live Site URL
 [[Enter Live Site Link Here](https://medicare-camp.web.app/)]
 
-
+##Organizer 
+Email: rakib@gmail.com ,, sumi@gmail.com
+Password: As1234@
 ---
 
 ## Key Features
