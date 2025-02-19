@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const AboutUs = () => {
   const teamMembers = [
@@ -58,203 +59,196 @@ const AboutUs = () => {
     },
   ];
 
-  return (
-    <div className="min-h-screen py-12">
-      {/* Mission & Vision Section */}
-      <section className="container mx-auto px-4 mb-16">
-        <h2 className="text-4xl font-bold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-[#336699] to-[#4B8FD4]">
-          Our Mission & Vision
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Mission */}
-          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-          <h3 className="text-2xl font-semibold mb-4 text-purple-600">Our Mission</h3>
-            <p className="text-gray-700">
-              To provide accessible and affordable healthcare services to underserved communities through organized camps and outreach programs.
-            </p>
-          </div>
+  // Animation Variants
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  };
 
-          {/* Vision */}
-          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-            <h3 className="text-2xl font-semibold mb-4 text-purple-600">Our Vision</h3>
-            <p className="text-gray-700">
-              A world where everyone has access to quality healthcare, regardless of their socioeconomic status.
-            </p>
+  const cardVariants = (index) => ({
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.6, ease: "easeOut", delay: index * 0.2 },
+    },
+  });
+
+  return (
+    <div>
+      {/* Mission & Vision Section */}
+      <motion.section
+        className="py-16 "
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={sectionVariants}
+      >
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.h2
+            className="text-4xl font-bold text-center text-[#336699] mb-8"
+            variants={sectionVariants}
+          >
+            Our Mission & Vision
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Mission */}
+            <motion.div variants={sectionVariants}>
+              <h3 className="text-2xl font-semibold text-gray-800 mb-4">Our Mission</h3>
+              <p className="text-gray-700">
+                To provide accessible and affordable healthcare services to underserved communities through organized camps and outreach programs.
+              </p>
+            </motion.div>
+            {/* Vision */}
+            <motion.div variants={sectionVariants}>
+              <h3 className="text-2xl font-semibold text-gray-800 mb-4">Our Vision</h3>
+              <p className="text-gray-700">
+                A world where everyone has access to quality healthcare, regardless of their socioeconomic status.
+              </p>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Team Members Section */}
-      <section className="container mx-auto px-4 mb-16">
-        <h2 className="text-4xl font-bold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-[#336699] to-[#4B8FD4]">
-          Meet Our Team
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {teamMembers.map((member) => (
-            <div
-              key={member.id}
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-            >
-              <img
-                src={member.image}
-                alt={member.name}
-                className="w-40 h-40 rounded-full mx-auto mb-4 border-4 border-blue-200 hover:border-purple-400 transition-all duration-300"
-              />
-              <h3 className="text-xl font-bold text-center text-gray-800">
-                {member.name}
-              </h3>
-              <p className="text-sm text-center text-gray-600">{member.role}</p>
-              <div className="flex justify-center gap-4 mt-4">
-                <a
-                  href={member.socialLinks.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 hover:text-blue-700 transition-colors duration-300"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-                    />
-                  </svg>
-                </a>
-                <a
-                  href={member.socialLinks.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-400 hover:text-blue-600 transition-colors duration-300"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.338-3.123C3.442 16.152 3 14.958 3 13c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          ))}
+      <motion.section
+        className="py-16"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.h2
+            className="text-4xl font-bold text-center text-[#336699] mb-8"
+            variants={sectionVariants}
+          >
+            Meet Our Team
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {teamMembers.map((member, index) => (
+              <motion.div
+                key={member.id}
+                variants={cardVariants(index)}
+                initial="hidden"
+                whileInView="visible"
+                className="text-center bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+              >
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-48 h-48 rounded-full mx-auto mb-4"
+                />
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                  {member.name}
+                </h3>
+                <p className="text-gray-600">{member.role}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Testimonials Section */}
-      <section className="container mx-auto px-4 mb-16">
-        <h2 className="text-4xl font-bold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-[#336699] to-[#4B8FD4]">
-          What People Say
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.id}
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-            >
-              <div className="flex items-center mb-4">
+      <motion.section
+        className="py-16 "
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.h2
+            className="text-4xl font-bold text-center text-[#336699] mb-8"
+            variants={sectionVariants}
+          >
+            What People Say
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={testimonial.id}
+                variants={cardVariants(index)}
+                initial="hidden"
+                whileInView="visible"
+                className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+              >
                 <img
                   src={testimonial.avatar}
                   alt={testimonial.name}
-                  className="w-12 h-12 rounded-full mr-4 border-2 border-blue-200"
+                  className="w-16 h-16 rounded-full mx-auto mb-4"
                 />
-                <div>
-                  <h4 className="text-lg font-semibold text-gray-800">
-                    {testimonial.name}
-                  </h4>
-                </div>
-              </div>
-              <p className="text-gray-700 italic">"{testimonial.quote}"</p>
-            </div>
-          ))}
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                  {testimonial.name}
+                </h3>
+                <p className="text-gray-700">"{testimonial.quote}"</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Contact Information Section */}
-      <section className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-[#336699] to-[#4B8FD4]">
-          Contact Us
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Email */}
-          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 text-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-12 w-12 mx-auto text-blue-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-              />
-            </svg>
-            <h3 className="text-xl font-semibold mt-4 text-gray-800">Email</h3>
-            <p className="text-gray-600">info@healthcarecamps.com</p>
-          </div>
-
-          {/* Phone */}
-          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 text-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-12 w-12 mx-auto text-green-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-              />
-            </svg>
-            <h3 className="text-xl font-semibold mt-4 text-gray-800">Phone</h3>
-            <p className="text-gray-600">+1 (234) 567-8900</p>
-          </div>
-
-          {/* Location */}
-          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 text-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-12 w-12 mx-auto text-red-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-            </svg>
-            <h3 className="text-xl font-semibold mt-4 text-gray-800">Location</h3>
-            <p className="text-gray-600">123 Healthcare Lane, City, Country</p>
+      <motion.section
+        className="py-16"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.h2
+            className="text-4xl font-bold text-center text-[#336699] mb-8"
+            variants={sectionVariants}
+          >
+            Contact Us
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Email */}
+            <motion.div variants={sectionVariants} className="text-center">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">Email</h3>
+              <p className="text-gray-700">info@healthcarecamps.com</p>
+            </motion.div>
+            {/* Phone */}
+            <motion.div variants={sectionVariants} className="text-center">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">Phone</h3>
+              <p className="text-gray-700">+1 (234) 567-8900</p>
+            </motion.div>
+            {/* Location */}
+            <motion.div variants={sectionVariants} className="text-center">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">Location</h3>
+              <p className="text-gray-700">123 Healthcare Lane, City, Country</p>
+            </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
+
+      {/* Google Map Section */}
+      <motion.section
+        className="py-16"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.h2
+            className="text-4xl font-bold text-center text-[#336699] mb-8"
+            variants={sectionVariants}
+          >
+            Find Us on Google Maps
+          </motion.h2>
+          <div className="rounded-lg overflow-hidden shadow-lg">
+            {/* Google Maps Embed */}
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.708118836156!2d-73.99412938459855!3d40.75004967932881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855b8fbef1f%3A0x8fd9821a93b8e78e!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1697209250000!5m2!1sen!2sus"
+              width="100%"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Google Map"
+            ></iframe>
+          </div>
+        </div>
+      </motion.section>
     </div>
   );
 };
