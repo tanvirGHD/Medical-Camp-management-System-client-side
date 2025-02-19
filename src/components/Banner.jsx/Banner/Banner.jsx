@@ -6,6 +6,7 @@ import FAQ from '../../../pages/StaticPage/Faq';
 import InsuranceAndFacilities from '../../../pages/StaticPage/InsuranceAndFacilities';
 import HealthQuiz from '../../../pages/StaticPage/HealthQuiz';
 import WhyChooseUs from '../../../pages/StaticPage/WhyChooseUs';
+import ContactAndSupport from '../../../pages/StaticPage/ContactAndSupport';
 
 const Banner = () => {
     return (
@@ -18,6 +19,7 @@ const Banner = () => {
             <FAQ></FAQ>
             <InsuranceAndFacilities></InsuranceAndFacilities>
             <HealthQuiz></HealthQuiz>
+            <ContactAndSupport></ContactAndSupport>
             </div>
         </div>
     );

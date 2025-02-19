@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const InsuranceAndFacilities = () => {
   const insurancePlans = [
@@ -160,6 +161,35 @@ const InsuranceAndFacilities = () => {
     },
   ];
 
+  // Animation variants for Insurance Plans
+  const insuranceCardVariants = (index) => ({
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: { 
+        opacity: 1, 
+        y: 0, 
+        scale: 1, 
+        transition: { 
+            duration: 0.6, 
+            ease: "easeOut", 
+            delay: index * 0.2 // Unique delay based on index
+        }
+    },
+  });
+
+  // Animation variants for Facilities
+  const facilityVariants = (index) => ({
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { 
+        opacity: 1, 
+        scale: 1, 
+        transition: { 
+            duration: 0.6, 
+            ease: "easeOut", 
+            delay: index * 0.1 // Unique delay based on index
+        }
+    },
+  });
+
   return (
     <div className="py-16">
       {/* Insurance Plans Section */}
@@ -167,10 +197,18 @@ const InsuranceAndFacilities = () => {
         <h2 className="text-4xl font-bold text-center mb-8 text-[#336699]">
           Insurance Plans
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {insurancePlans.map((plan) => (
-            <div
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {insurancePlans.map((plan, index) => (
+            <motion.div
               key={plan.id}
+              variants={insuranceCardVariants(index)} // Pass the index to create unique animation
+              initial="hidden"
+              whileInView="visible"
               className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
             >
               <h3 className="text-xl font-semibold text-gray-800 mb-4">
@@ -197,9 +235,9 @@ const InsuranceAndFacilities = () => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       {/* Facilities Section */}
@@ -207,17 +245,25 @@ const InsuranceAndFacilities = () => {
         <h2 className="text-4xl font-bold text-center mb-8 text-[#336699]">
           Facilities
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8">
-          {facilities.map((facility) => (
-            <div
+        <motion.div
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {facilities.map((facility, index) => (
+            <motion.div
               key={facility.id}
+              variants={facilityVariants(index)} // Pass the index to create unique animation
+              initial="hidden"
+              whileInView="visible"
               className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 text-center"
             >
               <div className="mb-4">{facility.icon}</div>
               <p className="text-gray-700 font-medium">{facility.name}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
     </div>
   );
