@@ -4,6 +4,7 @@ import PopularCamp from '../../Home/PopularCamp';
 import FeedBack from '../../../pages/Feedback/FeedBack';
 import FAQ from '../../../pages/StaticPage/Faq';
 import InsuranceAndFacilities from '../../../pages/StaticPage/InsuranceAndFacilities';
+import HealthQuiz from '../../../pages/StaticPage/HealthQuiz';
 
 const Banner = () => {
     return (
@@ -14,6 +15,7 @@ const Banner = () => {
             <FeedBack></FeedBack>
             <FAQ></FAQ>
             <InsuranceAndFacilities></InsuranceAndFacilities>
+            <HealthQuiz></HealthQuiz>
             </div>
         </div>
     );
